@@ -1,14 +1,13 @@
 require("dotenv").config();
-
 const express = require("express");
 const nodemailer = require("nodemailer");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const multer = require("multer");
 const path = require("path");
+const serverless = require("serverless-http");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
@@ -55,7 +54,5 @@ app.post("/submit-form", upload.single("file"), async (req, res) => {
   }
 });
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+// Use serverless-http to wrap the Express app for Vercel deployment
+module.exports.handler = serverless(app);
