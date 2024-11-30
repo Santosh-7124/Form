@@ -41,13 +41,10 @@ const ContactForm = () => {
         formDataToSend.append("file", file);
       }
 
-      const response = await fetch(
-        "https://backend-umber-chi.vercel.app/api/server",
-        {
-          method: "POST",
-          body: formDataToSend,
-        }
-      );
+      const response = await fetch("http://localhost:3000/submit-form", {
+        method: "POST",
+        body: formDataToSend,
+      });
 
       const result = await response.json();
       setResponseMessage(result.message);
